@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiThreading.Task3.MatrixMultiplier.Matrices;
 using MultiThreading.Task3.MatrixMultiplier.Multipliers;
@@ -18,8 +19,22 @@ namespace MultiThreading.Task3.MatrixMultiplier.Tests
         [TestMethod]
         public void ParallelEfficiencyTest()
         {
-            // todo: implement a test method to check the size of the matrix which makes parallel multiplication more effective than
-            // todo: the regular one
+            byte sizeOfMatrix = 55;
+            var firstMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
+            var secondMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
+            var resultMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
+            var resultParallelMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
+            Stopwatch stopWatch = new();
+            stopWatch.Start();
+            new MatricesMultiplier().Multiply(firstMatrix, secondMatrix, resultMatrix);
+            stopWatch.Stop();
+            var seqElapsedMilliseconds = stopWatch.ElapsedMilliseconds;
+            stopWatch.Restart();
+            new MatricesMultiplierParallel().Multiply(firstMatrix, secondMatrix, resultParallelMatrix);
+            stopWatch.Stop();
+            var parallelElapsedMilliseconds = stopWatch.ElapsedMilliseconds;    
+            
+            Assert.IsTrue(seqElapsedMilliseconds > parallelElapsedMilliseconds);
         }
 
         #region private methods
@@ -57,7 +72,8 @@ namespace MultiThreading.Task3.MatrixMultiplier.Tests
             m2.SetElement(2, 1, 8);
             m2.SetElement(2, 2, 9);
 
-            var multiplied = matrixMultiplier.Multiply(m1, m2);
+            var multiplied = new Matrix(3, 3);
+            matrixMultiplier.Multiply(m1, m2, multiplied);
             Assert.AreEqual(448, multiplied.GetElement(0, 0));
             Assert.AreEqual(1826, multiplied.GetElement(0, 1));
             Assert.AreEqual(3052, multiplied.GetElement(0, 2));
