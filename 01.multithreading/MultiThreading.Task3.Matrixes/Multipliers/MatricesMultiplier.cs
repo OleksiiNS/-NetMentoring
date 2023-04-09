@@ -4,9 +4,8 @@ namespace MultiThreading.Task3.MatrixMultiplier.Multipliers
 {
     public class MatricesMultiplier : IMatricesMultiplier
     {
-        public IMatrix Multiply(IMatrix m1, IMatrix m2)
+        public void Multiply(IMatrix m1, IMatrix m2, IMatrix resultMatrix)
         {
-            var resultMatrix = new Matrix(m1.RowCount, m2.ColCount);
             for (long i = 0; i < m1.RowCount; i++)
             {
                 for (byte j = 0; j < m2.ColCount; j++)
@@ -20,8 +19,6 @@ namespace MultiThreading.Task3.MatrixMultiplier.Multipliers
                     resultMatrix.SetElement(i, j, sum);
                 }
             };
-
-            return resultMatrix;
         }
     }
 }
