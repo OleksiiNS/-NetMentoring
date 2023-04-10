@@ -11,13 +11,12 @@
 
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MultiThreading.Task4.Threads.Join
 {
     class Program
     {
-        public static Semaphore semaphore = new Semaphore(1, 1);
+        public static SemaphoreSlim semaphore = new SemaphoreSlim(1);
         static void Main(string[] args)
         {
             Console.WriteLine("4.	Write a program which recursively creates 10 threads.");
@@ -33,7 +32,7 @@ namespace MultiThreading.Task4.Threads.Join
 
             Console.WriteLine();
             Console.WriteLine("- b) ThreadPool class for this task and Semaphore for waiting threads.");
-            semaphore.WaitOne();
+            semaphore.Wait();
             ThreadPool.QueueUserWorkItem(new WaitCallback(DecrementPool), number);
             semaphore.Release();
             Console.ReadLine();
@@ -43,7 +42,8 @@ namespace MultiThreading.Task4.Threads.Join
         {
             if (number > 0)
             {
-                Console.WriteLine(number);
+                var newNumber = number-1;
+                Console.WriteLine(newNumber);
                 var task = new Thread(()=> Decrement(number-1));
                 task.Start();
                 task.Join();
@@ -55,8 +55,9 @@ namespace MultiThreading.Task4.Threads.Join
             int number = (int)value;
             if (number > 0)
             {
-                Console.WriteLine(number);
-                semaphore.WaitOne();
+                semaphore.Wait();
+                var newNumber = number-1;
+                Console.WriteLine(newNumber);
                 ThreadPool.QueueUserWorkItem(new WaitCallback(DecrementPool), number-1);
                 semaphore.Release();
             };
