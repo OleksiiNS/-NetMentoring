@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MultiThreading.Task6.Continuation
 {
-    class Program
+    class Programs
     {
         static void Main(string[] args)
         {
@@ -43,7 +43,6 @@ namespace MultiThreading.Task6.Continuation
             task.ContinueWith( (i, token) =>{ 
                 Console.WriteLine("Continuation task should be executed when the parent task would be finished with fail and parent task thread should be reused for continuation.");
                 }, null,token, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.FromCurrentSynchronizationContext());
-
             
             task.Wait();
             Console.ReadLine();
