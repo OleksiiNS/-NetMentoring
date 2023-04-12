@@ -24,6 +24,7 @@ namespace MultiThreading.Task3.MatrixMultiplier.Tests
             var secondMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
             var resultMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
             var resultParallelMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
+
             Stopwatch stopWatch = new();
             stopWatch.Start();
             new MatricesMultiplier().Multiply(firstMatrix, secondMatrix, resultMatrix);

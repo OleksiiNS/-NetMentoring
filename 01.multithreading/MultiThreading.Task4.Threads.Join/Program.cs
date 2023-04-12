@@ -10,13 +10,13 @@
  */
 
 using System;
-using System.Threading;
 
 namespace MultiThreading.Task4.Threads.Join
 {
     class Program
     {
-        public static SemaphoreSlim semaphore = new SemaphoreSlim(1);
+        private const int NumberOfThreads = 10;
+
         static void Main(string[] args)
         {
             Console.WriteLine("4.	Write a program which recursively creates 10 threads.");
@@ -25,42 +25,15 @@ namespace MultiThreading.Task4.Threads.Join
             Console.WriteLine();
             
             Console.WriteLine("- a) Use Thread class for this task and Join for waiting threads.");
-            int number = 10;
-            var parent = new Thread(()=> Decrement(number));
-            parent.Start();
-            parent.Join();
+            
+            BusinessLayer.RunWithJoin(NumberOfThreads);
 
             Console.WriteLine();
             Console.WriteLine("- b) ThreadPool class for this task and Semaphore for waiting threads.");
-            semaphore.Wait();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(DecrementPool), number);
-            semaphore.Release();
+
+            BusinessLayer.RunWithSemaphore(NumberOfThreads);
+            
             Console.ReadLine();
-        }
-
-        static void Decrement(int number)
-        {
-            if (number > 0)
-            {
-                var newNumber = number-1;
-                Console.WriteLine(newNumber);
-                var task = new Thread(()=> Decrement(number-1));
-                task.Start();
-                task.Join();
-            };
-        }
-
-        static void DecrementPool(object value)
-        {
-            int number = (int)value;
-            if (number > 0)
-            {
-                semaphore.Wait();
-                var newNumber = number-1;
-                Console.WriteLine(newNumber);
-                ThreadPool.QueueUserWorkItem(new WaitCallback(DecrementPool), number-1);
-                semaphore.Release();
-            };
         }
     }
 }

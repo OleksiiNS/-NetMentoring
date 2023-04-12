@@ -19,16 +19,24 @@ namespace MultiThreading.Task3.MatrixMultiplier
         {
             Console.WriteLine("3.	Write a program, which multiplies two matrices and uses class Parallel. ");
             Console.WriteLine();
-
-            byte sizeOfMatrix = 210;
-            CreateAndProcessMatrices(sizeOfMatrix);
+            byte sizeOfMatrix = 0;
+            do
+            {
+                sizeOfMatrix++;
+                if (CreateAndProcessMatrices(sizeOfMatrix))
+                {
+                    Console.WriteLine($"ParallelMultiplier is faster then Multiplier when size of Matrix = {sizeOfMatrix}");
+                    break;
+                }
+            } while (sizeOfMatrix<byte.MaxValue);
 
             Console.ReadLine();
         }
 
-        private static void CreateAndProcessMatrices(byte sizeOfMatrix)
+        private static bool CreateAndProcessMatrices(byte sizeOfMatrix)
         {
-            Console.WriteLine("Multiplying...");
+            Console.WriteLine($"Multiplying Matrix with size = {sizeOfMatrix}");
+
             var firstMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
             var secondMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix, true);
             var resultMatrix = new Matrix(sizeOfMatrix, sizeOfMatrix);
@@ -43,16 +51,20 @@ namespace MultiThreading.Task3.MatrixMultiplier
             stopWatch.Start();
             new MatricesMultiplierParallel().Multiply(firstMatrix, secondMatrix, resultParallelMatrix);            
             stopWatch.Stop();
-            Console.WriteLine($"Time Taken to ParallelMultipy in miliseconds {stopWatch.ElapsedMilliseconds}");
+            var parallelMultiplierTime = stopWatch.ElapsedMilliseconds;
+            Console.WriteLine($"Time Taken to ParallelMultiplier in milliseconds {parallelMultiplierTime}");
             Console.WriteLine("resultParallelMatrix:");
             resultParallelMatrix.Print();
 
             stopWatch.Restart();
             new MatricesMultiplier().Multiply(firstMatrix, secondMatrix, resultMatrix);
             stopWatch.Stop();
-            Console.WriteLine($"Time Taken to Multipy in miliseconds {stopWatch.ElapsedMilliseconds}");
+            var seqMultiplierTime = stopWatch.ElapsedMilliseconds;
+            Console.WriteLine($"Time Taken to Multiplier in milliseconds {seqMultiplierTime}");
             Console.WriteLine("resultMatrix:");
-            resultMatrix.Print();            
+            resultMatrix.Print();
+
+            return parallelMultiplierTime < seqMultiplierTime;
         }
     }
 }

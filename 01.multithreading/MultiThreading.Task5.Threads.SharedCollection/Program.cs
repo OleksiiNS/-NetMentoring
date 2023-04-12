@@ -13,10 +13,11 @@ namespace MultiThreading.Task5.Threads.SharedCollection
 {
     class Program
     {
-        private static List<int> _collection = new List<int>();
-        private static Mutex _locker = new Mutex();
-        private static int _printed = 0;
-        private static Random _random = new Random();
+        private static readonly List<int> Collection = new ();
+        private static readonly Mutex Locker = new ();
+        private static int _printed;
+        private static int GetRandom => new Random().Next(1, 100);
+
         static void Main(string[] args)
         {
             Console.WriteLine("5. Write a program which creates two threads and a shared collection:");
@@ -24,8 +25,8 @@ namespace MultiThreading.Task5.Threads.SharedCollection
             Console.WriteLine("Use Thread, ThreadPool or Task classes for thread creation and any kind of synchronization constructions.");
             Console.WriteLine();
 
-            var taskPrint = Task.Factory.StartNew(() => Print());
-            var taskAdd = Task.Factory.StartNew(() => Add());
+            var taskPrint = Task.Factory.StartNew(Print);
+            var taskAdd = Task.Factory.StartNew(Add);
             
             Task.WaitAll(taskAdd, taskPrint);
             
@@ -35,30 +36,28 @@ namespace MultiThreading.Task5.Threads.SharedCollection
         {
             do
             {
-                if(_printed<_collection.Count)
+                if(_printed < Collection.Count)
                 { 
-                    _locker.WaitOne();
-                    foreach (var item in _collection)
+                    Locker.WaitOne();
+                    foreach (var item in Collection)
                     {
                        Console.Write(item+" ");
                     }
                     Console.WriteLine();
-                    _printed = _collection.Count;
-                    _locker.ReleaseMutex();
+                    _printed = Collection.Count;
+                    Locker.ReleaseMutex();
                 }
             }
             while (_printed < 10);
         }
 
-        static void Add()
+        private static void Add()
         {
-            for (int i=0; i<10; i++)
+            for (var i=0; i<10; i++)
             {
-                var r = _random.Next(100);
-                
-                _locker.WaitOne();
-                _collection.Add(r);
-                _locker.ReleaseMutex();
+               Locker.WaitOne();
+                Collection.Add(GetRandom);
+                Locker.ReleaseMutex();
             };
         }
     }

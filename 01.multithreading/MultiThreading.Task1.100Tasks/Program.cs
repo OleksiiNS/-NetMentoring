@@ -4,14 +4,13 @@
  * “Task #0 – {iteration number}”.
  */
 using System;
-using System.Threading;
 
 namespace MultiThreading.Task1._100Tasks
 {
     class Program
     {
-        const int TaskAmount = 100;
-        const int MaxIterationsCount = 1000;
+        private const int TaskAmount = 100;
+        private const int MaxIterationsCount = 1000;
 
         static void Main(string[] args)
         {
@@ -21,39 +20,13 @@ namespace MultiThreading.Task1._100Tasks
             Console.WriteLine("“Task #0 – {iteration number}”.");
             Console.WriteLine();
             
-            HundredTasks();
+            var taskLayer = new BusinessLayer(TaskAmount, MaxIterationsCount, Output);
+            taskLayer.HundredTasks();
            
             Console.ReadLine();
         }
 
-        static void HundredTasks()
-        {
-
-            for (int i = 0; i < TaskAmount; i++)
-            {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(IretatedOutput), i);
-            }
-
-            //Wait all
-            bool working = true;
-            ThreadPool.GetMaxThreads(out int maxWorkerThreads, out int maxCompletionPortThreads);
-            while (working)
-            {
-                ThreadPool.GetAvailableThreads(out int workerThreads, out int completionPortThreads);
-                if (workerThreads == maxWorkerThreads)
-                { working = false; }
-            }
-        }
-
-        static void IretatedOutput(object taskNumber) 
-         {
-            for (int i = 0; i < MaxIterationsCount; i++)
-            { 
-                Output((int)taskNumber,i);
-            }
-         }
-
-        static void Output(int taskNumber, int iterationNumber)
+        private static void Output(int taskNumber, int iterationNumber)
         {
             Console.WriteLine($"Task #{taskNumber} – {iterationNumber}");
         }
