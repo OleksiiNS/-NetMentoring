@@ -43,7 +43,7 @@ namespace MultiThreading.Task6.Continuation
                 }, null, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.FromCurrentSynchronizationContext());
             task.ContinueWith( (_, _) =>{ 
                 Console.WriteLine("Continuation task should be executed outside of the thread pool when the parent task would be cancelled.");
-                }, null,token, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.FromCurrentSynchronizationContext());
+                }, null,token, TaskContinuationOptions.OnlyOnCanceled, TaskScheduler.FromCurrentSynchronizationContext());
             
             task.Wait(token);
             Console.ReadLine();

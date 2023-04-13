@@ -33,7 +33,7 @@ namespace MultiThreading.Task3.MatrixMultiplier.Tests
             stopWatch.Restart();
             new MatricesMultiplierParallel().Multiply(firstMatrix, secondMatrix, resultParallelMatrix);
             stopWatch.Stop();
-            var parallelElapsedMilliseconds = stopWatch.ElapsedMilliseconds;    
+            var parallelElapsedMilliseconds = stopWatch.ElapsedMilliseconds;
             
             Assert.IsTrue(seqElapsedMilliseconds > parallelElapsedMilliseconds);
         }

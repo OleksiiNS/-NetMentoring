@@ -21,7 +21,7 @@ namespace MultiThreading.Task2.Chaining
             Console.WriteLine("Fourth Task – calculates the average value. All this tasks should print the values to console");
             Console.WriteLine();
 
-            var result = BusinessLayer.GetTaskResult();
+            var result = Worker.GetTaskResult();
 
             Console.WriteLine("=================================");
             Console.WriteLine($"Final result = {result}");

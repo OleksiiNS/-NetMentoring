@@ -20,7 +20,7 @@ namespace MultiThreading.Task1._100Tasks
             Console.WriteLine("“Task #0 – {iteration number}”.");
             Console.WriteLine();
             
-            var taskLayer = new BusinessLayer(TaskAmount, MaxIterationsCount, Output);
+            var taskLayer = new Worker(TaskAmount, MaxIterationsCount, Output);
             taskLayer.HundredTasks();
            
             Console.ReadLine();

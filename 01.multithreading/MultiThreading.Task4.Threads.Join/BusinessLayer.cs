@@ -5,7 +5,7 @@ namespace MultiThreading.Task4.Threads.Join
 {
     internal static class BusinessLayer
     {
-        private static readonly SemaphoreSlim Semaphore = new (1);
+        private static readonly SemaphoreSlim Locker = new (1);
         public static void RunWithJoin(int startThreadNumber)
         {
             var parent = new Thread(()=> Decrement(startThreadNumber));
@@ -15,9 +15,9 @@ namespace MultiThreading.Task4.Threads.Join
 
         public static void RunWithSemaphore(int startThreadNumber)
         {
-            Semaphore.Wait();
+            Locker.Wait();
             ThreadPool.QueueUserWorkItem(DecrementPool, startThreadNumber);
-            Semaphore.Release();
+            Locker.Release();
         }
 
         private static void Decrement(int number)
@@ -37,11 +37,11 @@ namespace MultiThreading.Task4.Threads.Join
             var number = (int)value;
             if (number > 0)
             {
-                Semaphore.Wait();
+                Locker.Wait();
                 var newNumber = number-1;
                 Console.WriteLine(newNumber);
                 ThreadPool.QueueUserWorkItem(DecrementPool, newNumber);
-                Semaphore.Release();
+                Locker.Release();
             };
         }
     }
