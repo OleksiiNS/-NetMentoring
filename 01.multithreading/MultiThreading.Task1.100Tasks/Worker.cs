@@ -21,13 +21,13 @@ namespace MultiThreading.Task1._100Tasks
             for (var i = 0; i < _taskAmount; i++)
             {
                 var param = i;
-                tasks[i] = Task.Run(() => IrritatedOutput(param));
+                tasks[i] = Task.Run(() => IteratedOutput(param));
             }
 
             Task.WaitAll(tasks);
         }
 
-        private void IrritatedOutput(int taskNumber) 
+        private void IteratedOutput(int taskNumber) 
         {
             for (var i = 0; i < _maxIterationsCount; i++)
             { 
