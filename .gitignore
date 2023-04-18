@@ -1,0 +1,97 @@
+# Autosave files
+*~
+
+# build
+[Oo]bj/
+[Bb]in/
+packages/
+TestResults/
+.bloop/
+.metals/
+metals.sbt
+
+# Eclipse workspace stuff
+*.metadata/
+*.project
+
+# globs
+Makefile.in
+*.DS_Store
+*.sln.cache
+*.suo
+*.cache
+*.pidb
+*.userprefs
+*.usertasks
+config.log
+config.make
+config.status
+aclocal.m4
+install-sh
+autom4te.cache/
+*.user
+*.tar.gz
+tarballs/
+test-results/
+Thumbs.db
+.vs/
+.vscode/
+
+# Mac bundle stuff
+*.dmg
+*.app
+
+# resharper
+*_Resharper.*
+*.Resharper
+
+# dotCover
+*.dotCover
+
+# ansible
+*.retry
+
+# terraform
+.terraform
+*.tfstate
+*.tfstate.backup
+
+# lambda zips
+*lambda_function.zip
+*sns_slack_notify.zip
+
+
+# sbt
+.idea
+target/
+
+# Reflex secret properties
+secret.conf
+modules/reflex/docker/.env
+modules/reflex/docker/mount/private.pem
+
+# Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# environment files
+.env
+
+# mind healthcheck db and seq log files
+*.db
+seq-data
+
+# NSO NED images
+*.bin
+
+# others
+site
+.bsp
+
+# NSO Packages
+modules/nso-service/cisco-iosxr-cli*
+load-dir/
+/modules/mind/src/Web/WebStatus/healthChecks.db-shm
+/modules/mind/src/Web/WebStatus/healthChecks.db-wal
