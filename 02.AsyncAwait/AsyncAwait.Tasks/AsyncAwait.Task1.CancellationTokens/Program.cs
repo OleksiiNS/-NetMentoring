@@ -31,11 +31,11 @@ internal class Program
         var cancelTokenSource = new CancellationTokenSource();
 
         var input = Console.ReadLine();
-        while (input != null && input.Trim().ToUpper() != "Q")
+        while (input != null && !string.Equals(input.Trim(), "Q", StringComparison.OrdinalIgnoreCase))
         {
             if (int.TryParse(input, out var n))
             {
-                if (_calculator == null || _calculator.IsCompleted)
+                if (_calculator == null || _calculator.Status!= TaskStatus.RanToCompletion)
                 {
                     var cts = cancelTokenSource;
                     _calculator = new Task(() => CalculateSumAsync(n, cts.Token));
@@ -48,6 +48,7 @@ internal class Program
                     var cts = cancelTokenSource;
                     _calculator = new Task(() => CalculateSumAsync(n, cts.Token));
                 }
+
                 _calculator.Start();
             }
             else
@@ -64,16 +65,20 @@ internal class Program
         cancelTokenSource.Dispose();
     }
 
-    private static async void CalculateSumAsync(int n, CancellationToken token)
+    private static async Task CalculateSumAsync(int numberToSum, CancellationToken token)
     {
-        token.Register(() => Console.WriteLine($"Sum for {n} cancelled..."));
-        Console.WriteLine($"The task for {n} started... Enter N to cancel the request:");
-        var sum = await Calculator.CalculateAsync(n, token);
+        Console.WriteLine($"The task for {numberToSum} started... Enter N to cancel the request:");
+        try
+        {
+            var sum = await Calculator.CalculateAsync(numberToSum, token);
 
-        if (token.IsCancellationRequested) return;
-
-        Console.WriteLine($"Sum for {n} = {sum}.");
-        Console.WriteLine();
-        Console.WriteLine("Enter N: ");
+            Console.WriteLine($"Sum for {numberToSum} = {sum}.");
+            Console.WriteLine();
+            Console.WriteLine("Enter N: ");
+        }
+        catch (OperationCanceledException ex)
+        {
+            Console.WriteLine($"Sum for {numberToSum} cancelled...");
+        }
     }
 }

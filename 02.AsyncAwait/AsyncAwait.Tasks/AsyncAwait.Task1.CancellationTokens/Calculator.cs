@@ -5,17 +5,18 @@ namespace AsyncAwait.Task1.CancellationTokens;
 
 internal static class Calculator
 {
-    public static Task<long> CalculateAsync(int n, CancellationToken token)
+    public static async Task<long> CalculateAsync(int iterationCount, CancellationToken token)
     {
         long sum = 0;
 
-        for (var i = 1; i <= n; i++)
+        for (var i = 1; i <= iterationCount; i++)
         {
-            if (token.IsCancellationRequested) break;
+            token.ThrowIfCancellationRequested();
             sum += i;
-            Thread.Sleep(100);
+            
+            await Task.Delay(100, token);
         }
 
-        return Task.FromResult(sum);
+        return await Task.FromResult(sum);
     }
 }
