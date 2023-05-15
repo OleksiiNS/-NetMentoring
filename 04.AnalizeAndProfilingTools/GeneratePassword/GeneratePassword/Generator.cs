@@ -9,7 +9,8 @@ namespace GeneratePassword
         
         public string GeneratePasswordHashUsingSalt(string passwordText, byte[] salt)
         {
-            var hash = new Rfc2898DeriveBytes(passwordText, salt, Iterate).GetBytes(20);
+            using var rfc = new Rfc2898DeriveBytes(passwordText, salt, Iterate);
+            var hash = rfc.GetBytes(20);
 
             Array.Copy(salt, 0, _hashBytes, 0, 16);
             Array.Copy(hash, 0, _hashBytes, 16, 20);

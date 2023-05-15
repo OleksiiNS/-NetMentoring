@@ -8,7 +8,7 @@ internal class Program
     {
         var generator = new Generator();
         var salt = new byte[16];
-        var rng = new RNGCryptoServiceProvider();
+        using var rng = new RNGCryptoServiceProvider();
         rng.GetBytes(salt);
 
         for (var i = 0; i < 50; i++)
@@ -17,6 +17,7 @@ internal class Program
             var result = generator.GeneratePasswordHashUsingSalt(password, salt);
             Console.WriteLine($"Password {password} -> {result}");
         }
+
 
         Console.ReadLine();
     }
