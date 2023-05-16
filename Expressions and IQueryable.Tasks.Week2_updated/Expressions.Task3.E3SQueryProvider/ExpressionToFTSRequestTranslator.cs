@@ -1,8 +1,6 @@
-﻿using Expressions.Task3.E3SQueryProvider.Models.Entities;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection.Metadata;
 using System.Text;
 
 namespace Expressions.Task3.E3SQueryProvider
@@ -95,12 +93,25 @@ namespace Expressions.Task3.E3SQueryProvider
                         throw new NotSupportedException($"One operand should be property or field and another operand should be constant");
                     }                    
                     break;
-
+                case ExpressionType.AndAlso:
+                    _resultStringBuilder.Append("\"statements\": [");
+                    AddStatement(node.Left);
+                    _resultStringBuilder.Append(",");
+                    AddStatement(node.Right);
+                    _resultStringBuilder.Append("\r\n]");
+                    break;
                 default:
                     throw new NotSupportedException($"Operation '{node.NodeType}' is not supported");
             };
 
             return node;
+        }
+
+        private void AddStatement(Expression node)
+        {
+            _resultStringBuilder.Append("\r\n{\"query\":\"");
+            Visit(node);
+            _resultStringBuilder.Append("\"}");
         }
 
         protected override Expression VisitMember(MemberExpression node)

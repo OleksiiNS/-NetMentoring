@@ -34,10 +34,14 @@ namespace Expressions.Task3.E3SQueryProvider.Test
                 // Operator between queries is AND, in other words result set will fit to both statements above
               ],
              */
+            var expected = $"\"statements\": [\r\n" +
+                           "{\"query\":\"Workstation:(EPRUIZHW006)\"},\r\n" +
+                           "{\"query\":\"Manager:(John*)\"}\r\n" +
+                           "]";
 
             // todo: create asserts for this test by yourself, because they will depend on your final implementation
             var  translated = translator.Translate(expression);
-            Assert.Equal("Workstation:(EPRUIZHW006)", translated);
+            Assert.Equal(expected, translated);
         }
 
         #endregion
