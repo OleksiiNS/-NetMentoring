@@ -95,3 +95,16 @@ modules/nso-service/cisco-iosxr-cli*
 load-dir/
 /modules/mind/src/Web/WebStatus/healthChecks.db-shm
 /modules/mind/src/Web/WebStatus/healthChecks.db-wal
+/04.AnalizeAndProfilingTools/DumpHomework/Microsoft.AspNetCore.Mvc.Core.pdb/638DE1711C254765BE575280D38874B2ffffffff/Microsoft.AspNetCore.Mvc.Core.pdb
+/04.AnalizeAndProfilingTools/DumpHomework/Newtonsoft.Json.pdb
+/04.AnalizeAndProfilingTools/DumpHomework/Newtonsoft.Json.pdb/ebd773282ff54523beacc89ce22279411
+/04.AnalizeAndProfilingTools/DumpHomework/Newtonsoft.Json.pdb/ebd773282ff54523beacc89ce22279411/symsrv.miss.txt
+/04.AnalizeAndProfilingTools/DumpHomework/Newtonsoft.Json.pdb/EBD773282FF54523BEACC89CE2227941ffffffff
+/04.AnalizeAndProfilingTools/DumpHomework/Newtonsoft.Json.pdb/EBD773282FF54523BEACC89CE2227941ffffffff/Newtonsoft.Json.pdb
+/04.AnalizeAndProfilingTools/DumpHomework/pingme.txt
+/04.AnalizeAndProfilingTools/DumpHomework/System.Linq.pdb/F2B0C922F4C54141831B0034CC4E23BCffffffff
+/04.AnalizeAndProfilingTools/DumpHomework/System.Linq.pdb/F2B0C922F4C54141831B0034CC4E23BCffffffff/System.Linq.pdb
+/04.AnalizeAndProfilingTools/DumpHomework/System.Private.CoreLib.pdb/363B4E8555584DF6ACF86B7AA6712246ffffffff
+/04.AnalizeAndProfilingTools/DumpHomework/System.Private.CoreLib.pdb/363B4E8555584DF6ACF86B7AA6712246ffffffff/System.Private.CoreLib.pdb
+/04.AnalizeAndProfilingTools/DumpHomework/System.Runtime.Serialization.Primitives.pdb/EEAA2026613E4BE2A44D43094D2143E8ffffffff
+/04.AnalizeAndProfilingTools/DumpHomework/System.Runtime.Serialization.Primitives.pdb/EEAA2026613E4BE2A44D43094D2143E8ffffffff/System.Runtime.Serialization.Primitives.pdb
