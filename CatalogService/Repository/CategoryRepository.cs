@@ -44,11 +44,16 @@ namespace CatalogService.Repository
             return category;
         }
 
-        public void DeleteCategory(int id)
+        public bool DeleteCategory(int id)
         {
-            var category = _context.Categories.First(r => r.Id == id);
+            var category = _context.Categories.FirstOrDefault(r => r.Id == id);
+            if (category == null)
+            {
+                return false;
+            }
             _context.Categories.Remove(category);
             _context.SaveChanges();
+            return true;
         }
 
         public Item AddItem(int categoryId, string itemName)
@@ -69,12 +74,17 @@ namespace CatalogService.Repository
             return updatedItem;
         }
 
-        public void DeleteItem(int categoryId, int itemId)
+        public bool DeleteItem(int categoryId, int itemId)
         {
             var category = _context.Categories.Include(i=>i.Items).First(r => r.Id == categoryId);
-            var item = category.Items.First(r => r.Id == itemId);
+            var item = category.Items.FirstOrDefault(r => r.Id == itemId);
+            if (item == null)
+            {
+                return false;
+            }
             category.Items.Remove(item);
             _context.SaveChanges();
+            return true;
         }
     }
 }

@@ -8,9 +8,9 @@ namespace CatalogService.Repository
         public IEnumerable<Item> GetItems(int categoryId, int page);
         public Category AddCategory(string name);
         public Category UpdateCategory(int id, string name);
-        public void DeleteCategory(int id);
+        public bool DeleteCategory(int id);
         public Item AddItem(int categoryId, string itemName);
         public Item UpdateItem(int categoryId, int id, string name);
-        public void DeleteItem(int categoryId, int itemId);
+        public bool DeleteItem(int categoryId, int itemId);
     }
 }
