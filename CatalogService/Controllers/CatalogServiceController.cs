@@ -21,7 +21,7 @@ namespace CatalogService.Controllers
         [Route("categories")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Category>> GetCategories()
         {
             try
@@ -31,11 +31,11 @@ namespace CatalogService.Controllers
                 return Ok(json);
             }
             catch {
-                return BadRequest();
+                return NotFound();
             }
         }
 
-        [Route("category")]
+        [Route("categories")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -52,7 +52,7 @@ namespace CatalogService.Controllers
             }
         }
 
-        [Route("category/{id}")]
+        [Route("categories/{id}")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -69,7 +69,7 @@ namespace CatalogService.Controllers
             }
         }
 
-        [Route("category/{id}")]
+        [Route("categories/{id}")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -85,10 +85,10 @@ namespace CatalogService.Controllers
             }
         }
 
-        [Route("category/{categoryId}/items")]
+        [Route("categories/{categoryId}/items")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<Item>> GetItems(int categoryId, int page)
         {
             try
@@ -98,11 +98,11 @@ namespace CatalogService.Controllers
                 return Ok(json);
             }
             catch {
-                return BadRequest();
+                return NotFound();
             }
         }
 
-        [Route("category/{categoryId}/item")]
+        [Route("categories/{categoryId}/items")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -119,7 +119,7 @@ namespace CatalogService.Controllers
             }
         }
 
-        [Route("category/{categoryId}/item/{id}")]
+        [Route("categories/{categoryId}/items/{id}")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -1,20 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-using CatalogService.Entities;
+﻿using CatalogService.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Repository
 {
-    public class CategoryRepository: ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private const int PageSize = 3;
         private readonly CategoryContext _context;
+
         public CategoryRepository() { 
             _context = new CategoryContext();
         }
 
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories.Include(i=>i.Items).ToList();
+            return _context.Categories.Include(i => i.Items).ToList();
         }
 
         public IEnumerable<Item> GetItems(int categoryId, int page)
@@ -53,7 +53,7 @@ namespace CatalogService.Repository
 
         public Item AddItem(int categoryId, string itemName)
         {
-            var newId = _context.Items.Any()?  _context.Items.Max(r => r.Id) + 1 : 1;
+            var newId = _context.Items.Any() ? _context.Items.Max(r => r.Id) + 1 : 1;
             var category = _context.Categories.First(r => r.Id == categoryId);
             var item = new Item { Id = newId, Name = itemName, Category = category };
             _context.Items.Add(item);
